@@ -1,0 +1,1 @@
+A (mini) plugin framework which is used by me for some private projects.
