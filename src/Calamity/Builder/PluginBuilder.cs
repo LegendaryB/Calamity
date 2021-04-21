@@ -21,34 +21,17 @@ namespace Calamity.Builder
 
         public IPluginContext Build()
         {
-            try
-            {
-                _logger.Log(LogConstants.ENTER);
+            var assembly = LoadAssembly();
 
-                var assembly = LoadAssembly();
-
-                return new PluginContext(
-                    assembly,
-                    _constructorParameters);
-            }
-            catch (Exception ex)
-            {
-                _logger.Log(
-                    LogLevel.Error,
-                    "",
-                    ex);
-
-                throw;
-            }
-            finally
-            {
-                _logger.Log(LogConstants.LEAVE);
-            }
+            return new PluginContext(
+                assembly,
+                _constructorParameters);
         }
 
         public IPluginBuilder DefineConstructorParameters(
             params object[] parameters)
         {
+
             if (parameters == null)
                 throw new ArgumentNullException();
 
@@ -67,24 +50,15 @@ namespace Calamity.Builder
 
         private Assembly LoadAssembly()
         {
-            try
-            {
-                _logger.Log(LogConstants.ENTER);
+            var assemblyLoadContext = new
+                PluginLoadContext(_assemblyPath);
 
-                var assemblyLoadContext = new
-                    PluginLoadContext(_assemblyPath);
+            var assembly = assemblyLoadContext
+                .LoadFromAssemblyPath(_assemblyPath);
 
-                var assembly = assemblyLoadContext
-                    .LoadFromAssemblyPath(_assemblyPath);
+            _logger.Log($"Loaded assembly: '{assembly.FullName}'");
 
-                _logger.Log($"Loaded assembly: '{assembly.FullName}'");
-
-                return assembly;
-            }
-            finally
-            {
-                _logger.Log(LogConstants.LEAVE);
-            }
+            return assembly;
         }
     }
 }

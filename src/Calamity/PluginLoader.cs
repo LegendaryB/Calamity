@@ -10,9 +10,6 @@ namespace Calamity
 {
     public class PluginLoader
     {
-        public static readonly PluginLoaderOptions Options =
-            new PluginLoaderOptions();
-
         private readonly ILogger<PluginLoader> _logger =
             LogProvider.Create<PluginLoader>();
 
@@ -21,18 +18,9 @@ namespace Calamity
 
             where TPlugin : class
         {
-            try
-            {
-                _logger.Log(LogConstants.ENTER);
-
-                return Instantiate(
-                    context,
-                    CreateInstance<TPlugin>);
-            }
-            finally
-            {
-                _logger.Log(LogConstants.LEAVE);
-            }
+            return Instantiate(
+                context,
+                CreateInstance<TPlugin>);
         }
 
         public TPlugin Instantiate<TPlugin>(
@@ -41,27 +29,18 @@ namespace Calamity
 
             where TPlugin : class
         {
-            try
-            {
-                _logger.Log(LogConstants.ENTER);
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
 
-                if (context == null)
-                    throw new ArgumentNullException(nameof(context));
+            if (factory == null)
+                throw new ArgumentNullException(nameof(factory));
 
-                if (factory == null)
-                    throw new ArgumentNullException(nameof(factory));
+            if (!TryResolveTypeFromAssembly<TPlugin>(context.Assembly, out Type implementationType))
+                return null;
 
-                if (!TryResolveTypeFromAssembly<TPlugin>(context.Assembly, out Type implementationType))
-                    return null;
-
-                return factory.Invoke(
-                    implementationType,
-                    context);
-            }
-            finally
-            {
-                _logger.Log(LogConstants.LEAVE);
-            }
+            return factory.Invoke(
+                implementationType,
+                context);
         }
 
         private TPlugin CreateInstance<TPlugin>(
@@ -70,46 +49,28 @@ namespace Calamity
 
             where TPlugin : class
         {
-            try
-            {
-                _logger.Log(LogConstants.ENTER);
-
-                return Activator.CreateInstance(
-                    implementationType,
-                    definition.ConstructorParameters.ToArray()) as TPlugin;
-            }
-            finally
-            {
-                _logger.Log(LogConstants.LEAVE);
-            }
+            return Activator.CreateInstance(
+                implementationType,
+                definition.ConstructorParameters.ToArray()) as TPlugin;
         }
 
         private bool TryResolveTypeFromAssembly<T>(
             Assembly assembly,
             out Type type)
         {
-            try
+            type = assembly
+                .GetTypes()
+                .FirstOrDefault(type =>
+                    !type.IsInterface &&
+                    !type.IsAbstract &&
+                    typeof(T).IsAssignableFrom(type));
+
+            if (type != null)
             {
-                _logger.Log(LogConstants.ENTER);
-
-                type = assembly
-                    .GetTypes()
-                    .FirstOrDefault(type => 
-                        !type.IsInterface &&
-                        !type.IsAbstract &&
-                        typeof(T).IsAssignableFrom(type));
-
-                if (type != null)
-                {
-                    _logger.Log($"Resolved type: '{type.FullName}' from assembly '{assembly.FullName}'");
-                }
-
-                return type != null;
+                _logger.Log($"Resolved type: '{type.FullName}' from assembly '{assembly.FullName}'");
             }
-            finally
-            {
-                _logger.Log(LogConstants.LEAVE);
-            }
+
+            return type != null;
         }
     }
 }

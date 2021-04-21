@@ -17,16 +17,18 @@ namespace ConsoleApp
                 .AddLogging(cfg => 
                     cfg.AddConsole()).Configure<LoggerFilterOptions>(cfg => cfg.MinLevel = LogLevel.Debug).BuildServiceProvider();
 
-            PluginLoader.Options.LoggerFactory = serviceProvider.GetService<ILoggerFactory>();
+            PluginLoaderOptions.Instance.LoggerFactory = serviceProvider.GetService<ILoggerFactory>();
 
             var path = @"C:\Users\danie\source\repos\Calamity\ClassLibrary1\bin\Debug\netstandard2.1\ClassLibrary1.dll";
 
-            var plugin = PluginBuilderFactory
+            var pluginContext = PluginBuilderFactory
                 .CreateFromAssembly(path)
                 .Build();
 
-            var engine = new PluginLoader();
-            var bla = engine.Instantiate<ITestPlugin>(plugin);
+            var loader = new PluginLoader();
+
+            var plugin = loader.Instantiate<ITestPlugin>(pluginContext);
+            plugin.Test();
         }
     }
 }

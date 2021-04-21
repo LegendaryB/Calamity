@@ -9,9 +9,16 @@ namespace Calamity.Logging
     {
         internal static ILogger<T> Create<T>()
         {
-            return PluginLoader.Options.LoggerFactory == null ?
+            return PluginLoaderOptions.Instance.LoggerFactory == null ?
                 NullLogger<T>.Instance :
-                PluginLoader.Options.LoggerFactory.CreateLogger<T>();
+                PluginLoaderOptions.Instance.LoggerFactory.CreateLogger<T>();
+        }
+
+        internal static ILogger Create(string category)
+        {
+            return PluginLoaderOptions.Instance.LoggerFactory == null ?
+                NullLogger.Instance :
+                PluginLoaderOptions.Instance.LoggerFactory.CreateLogger(category);
         }
 
         internal static void Log(
