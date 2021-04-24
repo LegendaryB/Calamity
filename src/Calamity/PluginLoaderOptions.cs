@@ -1,34 +1,26 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Calamity.TypeActivators;
+
+using Microsoft.Extensions.Logging;
 
 namespace Calamity
 {
     public class PluginLoaderOptions
     {
-        private static PluginLoaderOptions _options;
-
-        public static PluginLoaderOptions Instance
-        {
-            get
-            {
-                if (_options == null)
-                    _options = new PluginLoaderOptions();
-
-                return _options;
-            }
-        }
-
         /// <summary>
         /// Factory to provide a logger for the internal library types.
         /// </summary>
-        public ILoggerFactory LoggerFactory { get; set; }
+        public static ILoggerFactory LoggerFactory { get; set; }
 
         /// <summary>
-        /// Flag to indicate if the plugin should use 
+        /// The default <see cref="ITypeActivator"/> which is used to create object instances. 
+        /// Default is <see cref="FrameworkActivator"/>.
         /// </summary>
-        public bool PreferAssembliesFromHost { get; set; }
+        public static ITypeActivator TypeActivator { get; set; } = new FrameworkActivator();
 
-        private PluginLoaderOptions()
-        {
-        }
+        /// <summary>
+        /// Flag to indicate if the plugin should prefer assemblies from the host.
+        /// Default is <see cref=""/>
+        /// </summary>
+        public static bool PreferAssembliesFromHost { get; set; } = true;
     }
 }

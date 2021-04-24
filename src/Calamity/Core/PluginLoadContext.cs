@@ -27,7 +27,7 @@ namespace Calamity.Core
         {
             _logger.Log($"Loading {assemblyName}");
 
-            if (PluginLoaderOptions.Instance.PreferAssembliesFromHost)
+            if (PluginLoaderOptions.PreferAssembliesFromHost)
             {
                 try
                 {
