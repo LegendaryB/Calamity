@@ -23,7 +23,29 @@ The static `PluginLoaderOptions` class contains properties for the configuration
 |PreferAssembliesFromHost|Flag to indicate if the plugin should prefer assemblies from the host.|true|
 
 ### Loading a plugin from a assembly
+To load a plugin from a assembly you need to use the static `PluginLoaderFactory` class. The method `CreateLoaderFor<>` will return a generic `IPluginLoader` instance to you. This instance holds all metadata which is then required to create a instance of the plugin. After setting several properties on your `IPluginLoader` instance you can finally use the `Build()` method. If you don't specify an alternate `ITypeActivator` implementation the default one from the `PluginLoaderOptions` will be used instead.
 
+Sample:
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        var path = @"C:\MyPluginAssembly.dll";
+        
+        // Will create a instance of a type which implements ITestPlugin and uses the default ITypeActivator.
+        var instance = PluginLoaderFactory
+            .CreateLoaderFor<ITestPlugin>(path)
+            .Build();
+            
+         // Will create a instance of a type which implements ITestPlugin and uses the specified ITypeActivator.
+        var instance = PluginLoaderFactory
+            .CreateLoaderFor<ITestPlugin>(path)
+            .Build(new MyTypeActivator());  
+    }
+}
+```
 
 ## Contributing
 
