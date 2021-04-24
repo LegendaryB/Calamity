@@ -13,19 +13,21 @@ namespace Calamity
         private readonly ILogger<PluginLoader> _logger =
             LogProvider.Create<PluginLoader>();
 
-        public TPlugin Instantiate<TPlugin>(
-            IPluginContext context)
+        public TPlugin Create<TPlugin>(
+            IPluginMetadata context)
 
             where TPlugin : class
         {
-            return Instantiate(
+            return Create(
                 context,
                 CreateInstance<TPlugin>);
         }
 
-        public TPlugin Instantiate<TPlugin>(
-            IPluginContext context,
-            Func<Type, IPluginContext, TPlugin> factory)
+
+
+        public TPlugin Create<TPlugin>(
+            IPluginMetadata context,
+            Func<Type, IPluginMetadata, TPlugin> factory)
 
             where TPlugin : class
         {
@@ -45,13 +47,17 @@ namespace Calamity
 
         private TPlugin CreateInstance<TPlugin>(
             Type implementationType,
-            IPluginContext definition)
+            IPluginMetadata definition)
 
             where TPlugin : class
         {
-            return Activator.CreateInstance(
+            var instance = Activator.CreateInstance(
                 implementationType,
                 definition.ConstructorParameters.ToArray()) as TPlugin;
+
+            _logger.Log($"Created instance of type '{implementationType}'");
+
+            return instance;
         }
 
         private bool TryResolveTypeFromAssembly<T>(
@@ -68,6 +74,10 @@ namespace Calamity
             if (type != null)
             {
                 _logger.Log($"Resolved type: '{type.FullName}' from assembly '{assembly.FullName}'");
+            }
+            else
+            {
+                _logger.Log($"Unable to resolve type");
             }
 
             return type != null;

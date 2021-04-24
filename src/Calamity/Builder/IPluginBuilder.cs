@@ -5,6 +5,6 @@
         IPluginBuilder DefineConstructorParameters(
             params object[] parameters);
 
-        IPluginContext Build();
+        IPluginMetadata Build();
     }
 }

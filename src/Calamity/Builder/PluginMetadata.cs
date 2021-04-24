@@ -3,13 +3,13 @@ using System.Reflection;
 
 namespace Calamity.Builder
 {
-    internal class PluginContext : IPluginContext
+    internal class PluginMetadata : IPluginMetadata
     {
         public Assembly Assembly { get; }
 
         public IReadOnlyList<object> ConstructorParameters { get; }
 
-        internal PluginContext(
+        internal PluginMetadata(
             Assembly assembly,
             List<object> constructorParameters)
         {

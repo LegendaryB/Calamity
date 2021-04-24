@@ -25,15 +25,32 @@ namespace Calamity.Core
         protected override Assembly Load(
             AssemblyName assemblyName)
         {
-            var assemblyPath = _resolver.ResolveAssemblyToPath(
-                assemblyName);
+            _logger.Log($"Loading {assemblyName}");
 
-            Default.LoadFromAssemblyName(assemblyName);
+            if (PluginLoaderOptions.Instance.PreferAssembliesFromHost)
+            {
+                try
+                {
+                    Default.LoadFromAssemblyName(assemblyName);
+                    _logger.Log($"Loaded {assemblyName} from host application context.");
 
-            //if (!string.IsNullOrWhiteSpace(assemblyPath))
-            //{
-            //    return LoadFromAssemblyPath(assemblyPath);
-            //}
+                    return null;
+                }
+                catch
+                {
+                    _logger.Log($"Failed to load {assemblyName} from host application context.");
+                }
+            }
+
+            var assemblyPath = _resolver.ResolveAssemblyToPath(assemblyName);
+
+            if (assemblyPath != null)
+            {
+                var assembly = LoadFromAssemblyPath(assemblyPath);
+                _logger.Log($"Loaded {assemblyName} from {assemblyPath}");
+
+                return assembly;
+            }
 
             return null;
         }

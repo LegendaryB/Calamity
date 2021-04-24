@@ -4,6 +4,7 @@ using Calamity.Logging;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.IO;
 
 namespace Calamity
 {
@@ -17,13 +18,19 @@ namespace Calamity
             if (string.IsNullOrWhiteSpace(assemblyPath))
             {
                 throw new ArgumentException(
-                    $"The parameter '{assemblyPath}' can't be null or empty!");
+                    $"Parameter '{assemblyPath}' can't be null or empty!");
+            }
+
+            if (!File.Exists(assemblyPath))
+            {
+                throw new FileNotFoundException(
+                    $"Lookup of assembly at path: '{assemblyPath}' failed.");
             }
 
             var builder = new PluginBuilder()
                 .DefineAssembly(assemblyPath);
 
-            _logger.Log($"Created {nameof(IPluginBuilder)} instance for assembly in path: {assemblyPath}");
+            _logger.Log($"Created plugin builder for assembly: '{assemblyPath}'");
 
             return builder;
         }

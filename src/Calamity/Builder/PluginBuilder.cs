@@ -19,11 +19,11 @@ namespace Calamity.Builder
         private readonly List<object> _constructorParameters =
             new List<object>();
 
-        public IPluginContext Build()
+        public IPluginMetadata Build()
         {
             var assembly = LoadAssembly();
 
-            return new PluginContext(
+            return new PluginMetadata(
                 assembly,
                 _constructorParameters);
         }
@@ -31,12 +31,17 @@ namespace Calamity.Builder
         public IPluginBuilder DefineConstructorParameters(
             params object[] parameters)
         {
-
             if (parameters == null)
-                throw new ArgumentNullException();
+            {
+                throw new ArgumentNullException(
+                    nameof(parameters),
+                    $"The parameter {nameof(parameters)} can't be null!");
+            }
 
             _constructorParameters.AddRange(
                 parameters);
+
+            _logger.Log($"Added {_constructorParameters.Count} constructor parameters.");
 
             return this;
         }
@@ -45,13 +50,14 @@ namespace Calamity.Builder
         {
             _assemblyPath = assemblyPath;
 
+            _logger.Log($"Assembly path parameter was set to: '{assemblyPath}'");
+
             return this;
         }
 
         private Assembly LoadAssembly()
         {
-            var assemblyLoadContext = new
-                PluginLoadContext(_assemblyPath);
+            var assemblyLoadContext = new PluginLoadContext(_assemblyPath);
 
             var assembly = assemblyLoadContext
                 .LoadFromAssemblyPath(_assemblyPath);

@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Calamity
 {
-    public interface IPluginContext
+    public interface IPluginMetadata
     {
         Assembly Assembly { get; }
         IReadOnlyList<object> ConstructorParameters { get; }
