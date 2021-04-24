@@ -15,12 +15,15 @@ A (mini) plugin framework for .NET applications.
 ## Getting started
 
 ### Configuration
-The `PluginLoaderOptions` class contains properties for the configuration of Calamity. The table shows a list of properties and a description what they do.
-|Name|Description|Default value|
+The static `PluginLoaderOptions` class contains properties for the configuration of Calamity. The table should be self explaining.
+|Property|Description|Default value|
 |---|---|---|
 |LoggerFactory|Factory to provide a logger for the internal library types.|NullLogger|
 |TypeActivator|The default `ITypeActivator` which is used to create object instances. |.NET Framework Activator|
 |PreferAssembliesFromHost|Flag to indicate if the plugin should prefer assemblies from the host.|true|
+
+### Loading a plugin from a assembly
+
 
 ## Contributing
 
