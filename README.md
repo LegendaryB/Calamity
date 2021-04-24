@@ -1,9 +1,9 @@
 ﻿﻿﻿﻿<h1 align="center">Calamity</h1><div align="center">
 
 [![forthebadge](https://forthebadge.com/images/badges/fuck-it-ship-it.svg)](https://forthebadge.com)
-[![Nuget](https://img.shields.io/nuget/v/Calamity.svg?style=flat-square)](https://www.nuget.org/packages/Calamity/)
 
 [![GitHub license](https://img.shields.io/github/license/LegendaryB/Kirei.svg?longCache=true&style=flat-square)](https://github.com/LegendaryB/Kirei/blob/master/LICENSE)
+[![Nuget](https://img.shields.io/nuget/v/Calamity.svg?style=flat-square)](https://www.nuget.org/packages/Calamity/)
 
 A (mini) plugin framework for .NET applications.
 <br>
