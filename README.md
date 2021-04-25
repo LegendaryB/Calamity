@@ -23,7 +23,7 @@ The static `PluginLoaderOptions` class contains properties for the configuration
 |PreferAssembliesFromHost|Flag to indicate if the plugin should prefer assemblies from the host.|true|
 
 ### Loading a plugin from a assembly
-To load a plugin from a assembly you need to use the static `PluginLoaderFactory` class. The method `CreateLoaderFor<>` will return a generic `IPluginLoader` instance to you. This instance holds all metadata which is then required to create a instance of the plugin. After setting several properties on your `IPluginLoader` instance you can finally use the `Build()` method. If you don't specify an alternate `ITypeActivator` implementation the default one from the `PluginLoaderOptions` will be used instead.
+To load a plugin from a assembly you need to use the static `PluginLoaderFactory` class. The method `CreateLoaderFor<>` will return a generic `IPluginLoader` instance to you. This instance holds all metadata which is then required to create a instance of the plugin. After setting several properties on your `IPluginLoader` instance you can finally use the `Build` method. If you don't specify an alternate `ITypeActivator` implementation the default one from the `PluginLoaderOptions` will be used instead.
 
 ```csharp
 class Program
@@ -50,6 +50,46 @@ class Program
     }
 }
 ```
+
+### Creating a ITypeActivator implementation
+A `ITypeActivator` instance is used to create a instance of an object from a type. To use a custom `ITypeActivator` you can set it global via the `PluginLoaderOptions.TypeActivator` property or give a instance as a parameter into the `IPluginLoader.Build` method.
+
+```csharp
+class Program
+{
+    // Inherit from ITypeActivator interface and implement it
+    public class MyTypeActivator : ITypeActivator
+    {
+        public TInterface CreateInstance<TInterface>(Type implementationType, object[] args) 
+            where TInterface : class
+        {
+            // Create the instance of the object
+            return Activator.CreateInstance(implementationType, args) as TInterface;
+        }
+    }
+
+    static void Main()
+    {
+        var path = @"C:\MyPluginAssembly.dll";
+        
+        var myTypeActivator = new MyTypeActivator();
+
+        // Will create a instance of a type which implements ITestPlugin and uses the custom ITypeActivator.
+        var instance = PluginLoaderFactory
+            .CreateLoaderFor<ITestPlugin>(path)
+            .Build(myTypeActivator);
+
+        // .. or set it global
+        PluginLoaderOptions.TypeActivator = myTypeActivator;
+
+        // Will create a instance of a type which implements ITestPlugin and uses the custom ITypeActivator specified in the options.
+        var instance = PluginLoaderFactory
+            .CreateLoaderFor<ITestPlugin>(path)
+            .Build();
+    }
+}
+```
+
 
 ## Contributing
 

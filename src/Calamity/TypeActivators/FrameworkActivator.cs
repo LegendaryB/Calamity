@@ -7,12 +7,6 @@ namespace Calamity.TypeActivators
     /// </summary>
     public class FrameworkActivator : ITypeActivator
     {
-        public TInterface CreateInstance<TInterface>(Type implementationType) 
-            where TInterface : class
-        {
-            return Activator.CreateInstance(implementationType) as TInterface;
-        }
-
         public TInterface CreateInstance<TInterface>(Type implementationType, object[] args) 
             where TInterface : class
         {
