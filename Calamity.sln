@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calamity", "src\Calamity\Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "src\samples\ConsoleApp\ConsoleApp.csproj", "{A16CB0C7-518F-4244-AB84-A874D5AF3D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{0F666526-2F4E-4A85-9DC2-E59EC6F31612}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{0F666526-2F4E-4A85-9DC2-E59EC6F31612}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary2", "ClassLibrary2\ClassLibrary2.csproj", "{0298C2AB-7C44-4180-B9E0-EDEC06ADFEF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary2", "ClassLibrary2\ClassLibrary2.csproj", "{0298C2AB-7C44-4180-B9E0-EDEC06ADFEF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calamity.AspNetCore", "src\Calamity.AspNetCore\Calamity.AspNetCore.csproj", "{5539B24D-E1BE-48B0-8F10-DBF7B9383AE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{0298C2AB-7C44-4180-B9E0-EDEC06ADFEF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0298C2AB-7C44-4180-B9E0-EDEC06ADFEF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0298C2AB-7C44-4180-B9E0-EDEC06ADFEF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5539B24D-E1BE-48B0-8F10-DBF7B9383AE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5539B24D-E1BE-48B0-8F10-DBF7B9383AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5539B24D-E1BE-48B0-8F10-DBF7B9383AE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5539B24D-E1BE-48B0-8F10-DBF7B9383AE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
