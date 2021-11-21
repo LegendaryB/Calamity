@@ -23,6 +23,7 @@
 	  <IncludeSource>true</IncludeSource>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	  <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	  <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

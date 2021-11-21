@@ -22,6 +22,8 @@ namespace ConsoleApp
             var instance = PluginLoaderFactory
                 .CreateLoaderFor<ITestPlugin>(path)
                 .Build();
+
+            instance.Test();
         }
     }
 }
