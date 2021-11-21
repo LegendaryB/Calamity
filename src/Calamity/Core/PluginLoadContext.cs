@@ -10,13 +10,11 @@ namespace Calamity.Core
 {
     internal class PluginLoadContext : AssemblyLoadContext
     {
-        private readonly ILogger<PluginLoadContext> _logger =
-            LogProvider.Create<PluginLoadContext>();
+        private readonly ILogger<PluginLoadContext> _logger = LogProvider.Create<PluginLoadContext>();
 
-        private readonly AssemblyDependencyResolver _resolver;        
+        private readonly AssemblyDependencyResolver _resolver;
 
-        internal PluginLoadContext(
-            string assemblyPath)
+        internal PluginLoadContext(string assemblyPath)
         {
             _resolver = new AssemblyDependencyResolver(
                 assemblyPath);
@@ -57,13 +55,14 @@ namespace Calamity.Core
 
         protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
         {
-            var dllPath = _resolver
-                .ResolveUnmanagedDllToPath(
-                    unmanagedDllName);
+            var libraryPath = _resolver.ResolveUnmanagedDllToPath(unmanagedDllName);
 
-            return string.IsNullOrWhiteSpace(dllPath) ? 
-                LoadUnmanagedDllFromPath(dllPath) : 
-                IntPtr.Zero;
+            if (libraryPath != null)
+            {
+                return LoadUnmanagedDllFromPath(libraryPath);
+            }
+
+            return IntPtr.Zero;
         }
     }
 }
