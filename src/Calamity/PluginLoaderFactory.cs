@@ -1,38 +1,55 @@
-﻿using Calamity.Logging;
-
-using Microsoft.Extensions.Logging;
-
-using System;
-using System.IO;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Calamity
 {
-    public static class PluginLoaderFactory
+    public class PluginLoaderFactory : IPluginLoaderFactory
     {
-        private static readonly ILogger _logger =
-            LogProvider.Create(nameof(PluginLoaderFactory));
+        private readonly ILoggerFactory _loggerFactory;
+        private readonly ILogger<PluginLoaderFactory> _logger;
 
-        public static IPluginLoader<TPlugin> CreateLoaderFor<TPlugin>(string assemblyPath)
-            where TPlugin : class
+        private readonly CalamityConfiguration _configuration;
+
+        public PluginLoaderFactory(ILoggerFactory? loggerFactory = null, CalamityConfiguration? configuration = null)
+        {
+            _loggerFactory = loggerFactory ?? new NullLoggerFactory();
+            _logger = _loggerFactory.CreateLogger<PluginLoaderFactory>();
+            _configuration = configuration ?? CalamityConfiguration.Default;
+        }
+
+        /// <summary>
+        /// Creates a loader instance for the given plugin type.
+        /// </summary>
+        /// <typeparam name="TPluginInterface"></typeparam>
+        /// <param name="assemblyPath"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="FileNotFoundException"></exception>
+        public IPluginLoader<TPluginInterface> CreateLoaderFor<TPluginInterface>(string assemblyPath)
+            where TPluginInterface : class
         {
             if (string.IsNullOrWhiteSpace(assemblyPath))
             {
-                throw new ArgumentException(
-                    $"The parameter '{nameof(assemblyPath)}' is required.");
+                var msg = $"The parameter '{nameof(assemblyPath)}' is required and therefor can't be empty/whitespace or null.";
+
+                _logger.LogError(msg);
+                throw new ArgumentException(msg);
             }
 
             if (!File.Exists(assemblyPath))
             {
+                var msg = "Could not find assembly file at the given location.";
+
+                _logger.LogError(msg);
                 throw new FileNotFoundException(
-                    "Could not find file at given location.",
+                    msg,
                     assemblyPath);
             }
 
-            var instance = new PluginLoader<TPlugin>(assemblyPath);
-
-            _logger.Log($"Created plugin loader for type '{typeof(TPlugin)}' from assembly: '{assemblyPath}'.");
-
-            return instance;
+            return new PluginLoader<TPluginInterface>(
+                _loggerFactory.CreateLogger<PluginLoader<TPluginInterface>>(),
+                assemblyPath,
+                _configuration);
         }
     }
 }
