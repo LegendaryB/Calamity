@@ -3,7 +3,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/fuck-it-ship-it.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-sharp.svg)](https://forthebadge.com)
 
-[![GitHub license](https://img.shields.io/github/license/LegendaryB/Kirei.svg?longCache=true&style=flat-square)](https://github.com/LegendaryB/Kirei/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/LegendaryB/Calamity.svg?longCache=true&style=flat-square)](https://github.com/LegendaryB/Calamity/blob/main/LICENSE)
 [![Nuget](https://img.shields.io/nuget/v/Calamity.svg?style=flat-square)](https://www.nuget.org/packages/Calamity/)
 
 A (mini) plugin framework for .NET applications.
