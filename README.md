@@ -12,6 +12,14 @@ A (mini) plugin framework for .NET applications.
 <sub>Built with ❤︎ by Daniel Belz</sub>
 </div><br>
 
+## Package overview
+|Package|Description|Version|
+|---|---|---|
+|Calamity||[![Nuget](https://img.shields.io/nuget/v/Calamity.svg?style=flat-square)](https://www.nuget.org/packages/Calamity/)|
+|Calamity.Abstractions||[![Nuget](https://img.shields.io/nuget/v/Calamity.Abstractions.svg?style=flat-square)](https://www.nuget.org/packages/Calamity.Abstractions/)|
+|Calamity.Extensions.Activation||[![Nuget](https://img.shields.io/nuget/v/Calamity.Extensions.Activation.svg?style=flat-square)](https://www.nuget.org/packages/Calamity.Extensions.Activation/)|
+|Calamity.Extensions.Hosting||[![Nuget](https://img.shields.io/nuget/v/Calamity.Extensions.Hosting.svg?style=flat-square)](https://www.nuget.org/packages/Calamity.Extensions.Hosting/)|
+
 ## Getting started
 
 ### Configuration
