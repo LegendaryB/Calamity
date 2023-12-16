@@ -6,22 +6,32 @@ namespace Calamity
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Registers Calamity's <see cref="IPluginLoaderFactory"/> into the dependency container.
+        /// Registers the Calamity framework into the dependency container.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when the <see cref="IServiceCollection"/> parameter is null.</exception>
-        public static IServiceCollection AddCalamity(this IServiceCollection services, Action<CalamityConfiguration> configureCalamity)
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="services"/> parameter is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="configureCalamity"/> parameter is null.</exception>
+        public static IServiceCollection AddCalamityFramework(
+            this IServiceCollection services,
+            Action<CalamityConfiguration> configureCalamity)
         {
             ArgumentNullException.ThrowIfNull(services);
             ArgumentNullException.ThrowIfNull(configureCalamity);
 
-            return AddCalamity(
+            return AddCalamityFramework(
                 services,
                 (serviceProvider, configuration) => {
                     configureCalamity(configuration);
                 });
         }
 
-        public static IServiceCollection AddCalamity(this IServiceCollection services, Action<IServiceProvider, CalamityConfiguration> configureCalamity)
+        /// <summary>
+        /// Registers the Calamity framework into the dependency container.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="services"/> parameter is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="configureCalamity"/> parameter is null.</exception>
+        public static IServiceCollection AddCalamityFramework(
+            this IServiceCollection services,
+            Action<IServiceProvider, CalamityConfiguration> configureCalamity)
         {
             ArgumentNullException.ThrowIfNull(services);
             ArgumentNullException.ThrowIfNull(configureCalamity);

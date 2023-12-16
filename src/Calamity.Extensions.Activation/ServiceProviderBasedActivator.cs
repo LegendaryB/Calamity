@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Calamity.Extensions.DependencyInjection
+namespace Calamity.Extensions.Activation
 {
     public class ServiceProviderBasedActivator : IActivator
     {
@@ -13,11 +13,12 @@ namespace Calamity.Extensions.DependencyInjection
             _serviceProvider = serviceProvider;
         }
 
-        public TInterface CreateInstance<TInterface>(Type implementationType)
+        public TInterface CreateInstance<TInterface>(Type implementationType, object[] parameters)
             where TInterface : class
         {
-            ConstructorLocator.TryFindConstructor(implementationType, out var ctor);
+            //ConstructorLocator.TryFindConstructor(implementationType, out var ctor);
 
+            //ActivatorUtilities.
             var instance = ActivatorUtilities.GetServiceOrCreateInstance(
                 _serviceProvider,
                 implementationType) as TInterface;

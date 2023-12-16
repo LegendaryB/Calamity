@@ -12,7 +12,7 @@ namespace Calamity
         /// <returns>A instance of the plugin.</returns>
         /// <exception cref="TypeLoadException">Thrown when type fails.</exception>
         /// <exception cref="InvalidOperationException">Thrown when instance creation fails.</exception>
-        TPluginInterface LoadPlugin();
+        TPluginInterface LoadPlugin(params object[] parameters);
 
         /// <summary>
         /// 

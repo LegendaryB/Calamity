@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Calamity.Extensions.DependencyInjection" />
+    <InternalsVisibleTo Include="Calamity.Extensions.Activation" />
     <InternalsVisibleTo Include="Calamity.Extensions.Hosting" />
   </ItemGroup>
 
@@ -40,6 +40,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Calamity.Abstractions\Calamity.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

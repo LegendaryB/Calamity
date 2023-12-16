@@ -8,7 +8,7 @@
         /// <typeparam name="TInterface"></typeparam>
         /// <param name="implementationType"></param>
         /// <returns></returns>
-        TInterface CreateInstance<TInterface>(Type implementationType)
+        TInterface CreateInstance<TInterface>(Type implementationType, object[] parameters)
             where TInterface : class;
     }
 }

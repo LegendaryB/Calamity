@@ -6,15 +6,18 @@ namespace Calamity
     public class PluginLoaderFactory : IPluginLoaderFactory
     {
         private readonly ILoggerFactory _loggerFactory;
-        private readonly ILogger<PluginLoaderFactory> _logger;
-
         private readonly CalamityConfiguration _configuration;
 
-        public PluginLoaderFactory(ILoggerFactory? loggerFactory = null, CalamityConfiguration? configuration = null)
+        private readonly ILogger<PluginLoaderFactory> _logger;
+
+        public PluginLoaderFactory(
+            ILoggerFactory? loggerFactory = null,
+            CalamityConfiguration? configuration = null)
         {
             _loggerFactory = loggerFactory ?? new NullLoggerFactory();
-            _logger = _loggerFactory.CreateLogger<PluginLoaderFactory>();
             _configuration = configuration ?? CalamityConfiguration.Default;
+
+            _logger = _loggerFactory.CreateLogger<PluginLoaderFactory>();
         }
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace Calamity
 
             if (!File.Exists(assemblyPath))
             {
-                var msg = "Could not find assembly file at the given location.";
+                var msg = $"Could not find assembly at path: {assemblyPath}.";
 
                 _logger.LogError(msg);
                 throw new FileNotFoundException(

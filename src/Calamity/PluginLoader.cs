@@ -25,7 +25,7 @@ namespace Calamity
                 _configuration.PreferAssembliesFromHost);
         }
 
-        public TPluginInterface LoadPlugin()
+        public TPluginInterface LoadPlugin(params object[] parameters)
         {
             try
             {
@@ -43,7 +43,9 @@ namespace Calamity
 
                 _logger.LogTrace($"Resolved type '{implementationType}' as the implementation type for the given plugin interface '{interfaceType}' from the assembly at path: {_context.AssemblyPath}.");
 
-                var instance = activator.CreateInstance<TPluginInterface>(implementationType!);
+                var instance = activator.CreateInstance<TPluginInterface>(
+                    implementationType!,
+                    parameters.ToArray());
 
                 if (instance == null)
                 {
