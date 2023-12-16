@@ -4,6 +4,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Calamity.Extensions.Activation</Title>
+    <Version>1.0.0</Version>
+    <Company>LegendaryB</Company>
+    <Authors>LegendaryB</Authors>
+    <Copyright>2023 LegendaryB</Copyright>
+    <PackageProjectUrl>https://github.com/LegendaryB/Calamity</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/LegendaryB/Calamity</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

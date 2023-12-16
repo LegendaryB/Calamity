@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Authors>Daniel Belz</Authors>
-    <Company>Daniel Belz</Company>
-    <Copyright>2021 Daniel Belz</Copyright>
+    <Authors>LegendaryB</Authors>
+    <Company>LegendaryB</Company>
+    <Copyright>2023 LegendaryB</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/LegendaryB/Calamity</PackageProjectUrl>
@@ -31,7 +31,8 @@
 	  <IncludeSource>true</IncludeSource>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	  <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-	  <Version>1.0.1</Version>
+	  <Version>1.0.2</Version>
+	  <Title>Calamity</Title>
   </PropertyGroup>
 
   <ItemGroup>
