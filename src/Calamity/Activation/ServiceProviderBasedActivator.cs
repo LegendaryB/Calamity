@@ -17,12 +17,6 @@ namespace Calamity.Extensions.Activation
         {
             _ = base.CreateInstance<TInterface>(implementationType, parameters);
 
-            //ActivatorUtilities
-
-            //ActivatorUtilities.CreateFactory
-
-            //ActivatorUtilities.CreateFactory
-
             return default!;
         }
 

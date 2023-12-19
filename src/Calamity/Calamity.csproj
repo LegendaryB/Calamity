@@ -14,10 +14,10 @@
 
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Calamity.Extensions.Activation" />
     <InternalsVisibleTo Include="Calamity.Extensions.Hosting" />
   </ItemGroup>
 
@@ -27,6 +27,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Calamity.Abstractions\Calamity.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
   </ItemGroup>
 
 </Project>
