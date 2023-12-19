@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Calamity.Configuration;
+
+using Microsoft.Extensions.Logging;
 
 namespace Calamity
 {
@@ -29,8 +31,14 @@ namespace Calamity
         {
             try
             {
-                var activator = _configuration.Activator;
 
+                if (_pluginInstance != null)
+                {
+                    _logger.LogTrace("A plugin instance was already activated. Returning it.");
+                    return _pluginInstance;
+                }
+
+                var activator = _configuration.Activator;
                 var interfaceType = typeof(TPluginInterface);
 
                 if (!TryResolvePluginTypeFromAssembly(out var implementationType))
@@ -43,9 +51,7 @@ namespace Calamity
 
                 _logger.LogTrace($"Resolved type '{implementationType}' as the implementation type for the given plugin interface '{interfaceType}' from the assembly at path: {_context.AssemblyPath}.");
 
-                var instance = activator.CreateInstance<TPluginInterface>(
-                    implementationType!,
-                    parameters.ToArray());
+                var instance = activator.CreateInstance<TPluginInterface>(implementationType!, parameters);
 
                 if (instance == null)
                 {
@@ -59,7 +65,7 @@ namespace Calamity
 
                 _pluginInstance = instance;
 
-                return instance;
+                return instance!;
             }
             catch (Exception ex)
             {

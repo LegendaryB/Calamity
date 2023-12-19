@@ -67,6 +67,11 @@ namespace Calamity
             {
                 var assemblyPath = _resolver.ResolveAssemblyToPath(assemblyName);
 
+                if (string.IsNullOrWhiteSpace(assemblyPath))
+                {
+                    throw new FileNotFoundException($"Failed to resolve path for assembly '{assemblyName.Name}'.");
+                }
+
                 var assembly = LoadFromAssemblyPath(assemblyPath);
                 _logger.LogDebug($"Loaded assembly '{assemblyName}' from path: {assemblyPath}");
 

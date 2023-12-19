@@ -3,7 +3,7 @@
 namespace Calamity.Attributes
 {
     /// <summary>
-    /// Attribute used to mark the constructor which should be used by the <see cref="IActivator"/> of the Calamity framework to create the instance.
+    /// Attribute used to mark the constructor which should be used by the <see cref="IActivator"/> to create a instance of this type.
     /// </summary>
     [AttributeUsage(AttributeTargets.Constructor, AllowMultiple = false, Inherited = false)]
     public class CalamityConstructorAttribute : Attribute

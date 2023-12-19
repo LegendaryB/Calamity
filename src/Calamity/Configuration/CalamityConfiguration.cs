@@ -1,11 +1,12 @@
 ﻿using Calamity.Activation;
 
-namespace Calamity
+namespace Calamity.Configuration
 {
     public class CalamityConfiguration
     {
-        internal IActivator Activator { get; private set; }
-        internal bool PreferAssembliesFromHost { get; private set; }
+        public bool PreferAssembliesFromHost { get; private set; }
+
+        public IActivator Activator { get; private set; }
 
         internal CalamityConfiguration()
         {
@@ -20,9 +21,17 @@ namespace Calamity
 
         public CalamityConfiguration UseActivator(IActivator activator)
         {
+            return UseActivator(activator, (activator) => {});
+        }
+
+        public CalamityConfiguration UseActivator(IActivator activator, Action<IActivator> configureActivator)
+        {
             ArgumentNullException.ThrowIfNull(activator);
+            ArgumentNullException.ThrowIfNull(configureActivator);
 
             Activator = activator;
+            configureActivator(Activator);
+
             return this;
         }
 

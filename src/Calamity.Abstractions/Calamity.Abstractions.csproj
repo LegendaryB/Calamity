@@ -13,6 +13,7 @@
     <PackageProjectUrl>https://github.com/LegendaryB/Calamity</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/LegendaryB/Calamity</RepositoryUrl>
+    <RootNamespace>$(SolutionName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
 </Project>

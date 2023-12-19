@@ -1,15 +1,27 @@
 ﻿namespace Calamity.Activation
 {
-    internal class DefaultActivator : IActivator
+    internal class DefaultActivator : ActivatorBase
     {
-        public TInterface CreateInstance<TInterface>(Type implementationType, object[] parameters)
+        public override TInterface CreateInstance<TInterface>(
+            Type implementationType,
+            object[] parameters)
+
             where TInterface : class
         {
-            var instance = Activator.CreateInstance(implementationType) as TInterface;
+            return default;
+            //_ = base.CreateInstance<TInterface>(implementationType, parameters);
 
+            //if (!Cache.TryGetValue(implementationType, out var constructor))
+            //{
+            //    constructor = ConstructorLocator.LocateApplicableConstructor(implementationType, parameters);
 
+            //    if (constructor == null)
+            //        throw new InvalidOperationException("Failed to locate applicable constructor!");
+            //}
 
-            return instance ?? throw new InvalidCastException($"Failed to cast created instance to type: {typeof(TInterface)}");
+            //Cache.TryAdd(implementationType, constructor);
+
+            //return Instantiate<TInterface>(constructor, parameters)!;
         }
     }
 }

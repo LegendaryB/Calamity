@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Calamity.Configuration;
+
+using Microsoft.Extensions.Hosting;
 
 namespace Calamity
 {
