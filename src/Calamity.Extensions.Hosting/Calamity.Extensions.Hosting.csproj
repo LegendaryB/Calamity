@@ -13,6 +13,7 @@
     <PackageProjectUrl>https://github.com/LegendaryB/Calamity</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/LegendaryB/Calamity</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +23,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Calamity\Calamity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
   </ItemGroup>
 
 </Project>
