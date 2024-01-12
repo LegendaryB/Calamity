@@ -32,11 +32,11 @@ namespace Calamity
             try
             {
 
-                if (_pluginInstance != null)
-                {
-                    _logger.LogTrace("A plugin instance was already activated. Returning it.");
-                    return _pluginInstance;
-                }
+                //if (_pluginInstance != null)
+                //{
+                //    _logger.LogTrace("A plugin instance was already activated. Returning it.");
+                //    return _pluginInstance;
+                //}
 
                 var activator = _configuration.Activator;
                 var interfaceType = typeof(TPluginInterface);

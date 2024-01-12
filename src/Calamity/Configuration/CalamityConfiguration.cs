@@ -1,30 +1,54 @@
 ﻿using Calamity.Activation;
 
+using Activator = Calamity.Activation.Activator;
+
 namespace Calamity.Configuration
 {
     public class CalamityConfiguration
     {
-        public bool PreferAssembliesFromHost { get; private set; }
-
         public IActivator Activator { get; private set; }
 
-        internal CalamityConfiguration()
+        public bool PreferAssembliesFromHost { get; private set; }
+
+
+        internal CalamityConfiguration() 
         {
-            Activator = new DefaultActivator();
+            Activator = new Activator
+            {
+                ShouldTypeBeCachedCallback = (_) => true,
+                ConstructorLocator = new ConstructorLocator()
+            };
         }
 
-        public CalamityConfiguration ShouldPreferAssembliesFromHost(bool value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configureActivator"></param>
+        /// <returns></returns>
+        public CalamityConfiguration UseDefaultActivator(Action<IActivator> configureActivator)
         {
-            PreferAssembliesFromHost = value;
-            return this;
+            return UseActivator(Activator, configureActivator);
         }
 
+        /// <summary>
+        /// Responsible for setting the <see cref="IActivator"/>
+        /// </summary>
+        /// <param name="activator"></param>
+        /// <returns></returns>
         public CalamityConfiguration UseActivator(IActivator activator)
         {
             return UseActivator(activator, (activator) => {});
         }
 
-        public CalamityConfiguration UseActivator(IActivator activator, Action<IActivator> configureActivator)
+        /// <summary>
+        /// sss
+        /// </summary>
+        /// <param name="activator"></param>
+        /// <param name="configureActivator"></param>
+        /// <returns></returns>
+        public CalamityConfiguration UseActivator(
+            IActivator activator,
+            Action<IActivator> configureActivator)
         {
             ArgumentNullException.ThrowIfNull(activator);
             ArgumentNullException.ThrowIfNull(configureActivator);
@@ -32,9 +56,16 @@ namespace Calamity.Configuration
             Activator = activator;
             configureActivator(Activator);
 
+            Activator.ConstructorLocator = Activator.ConstructorLocator ?? new ConstructorLocator();
+            Activator.ShouldTypeBeCachedCallback = Activator.ShouldTypeBeCachedCallback ?? new Func<Type, bool>((type) => true);
+
             return this;
         }
 
-        internal static CalamityConfiguration Default => new();
+        public CalamityConfiguration ShouldPreferAssembliesFromHost(bool value)
+        {
+            PreferAssembliesFromHost = value;
+            return this;
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Calamity
             CalamityConfiguration? configuration = null)
         {
             _loggerFactory = loggerFactory ?? new NullLoggerFactory();
-            _configuration = configuration ?? CalamityConfiguration.Default;
+            _configuration = configuration ?? new();
 
             _logger = _loggerFactory.CreateLogger<PluginLoaderFactory>();
         }
